@@ -1,0 +1,29 @@
+apiVersion: 'argoproj.io/v1alpha1'
+kind: Application
+metadata:
+  name: managed-argocd-t-test-west
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    name: t-test-west
+  project: default
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 10m
+      limit: 10
+    syncOptions:
+    - PrunePropagationPolicy=foreground
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://gitlab.com/api/v4/projects/47132311/packages/helm/stable
+    chart: "managed-argocd"
+    targetRevision: 5.3.6
