@@ -1,0 +1,28 @@
+apiVersion: 'argoproj.io/v1alpha1'
+kind: Application
+metadata:
+  name: managed-namespaces-t-test-west
+spec:
+  destination:
+    server: https://35.170.75.144:8443
+    namespace: argocd
+  project: default
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: false
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 10m
+      limit: 10
+    syncOptions:
+    - PrunePropagationPolicy=foreground
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://gitlab.com/api/v4/projects/47259592/packages/helm/stable
+    chart: "managed-namespaces"
+    targetRevision: 0.1.0
