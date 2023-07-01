@@ -4,8 +4,8 @@ metadata:
   name: managed-namespaces-t-test-west
 spec:
   destination:
-    server: https://35.170.75.144:8443
     namespace: argocd
+    server: https://35.170.75.144:8443
   project: default
   syncPolicy:
     automated:
