@@ -5,7 +5,7 @@ metadata:
 spec:
   destination:
     namespace: argocd
-    server: https://35.170.75.144:8443
+    server: https://18.207.135.62:8443
   project: default
   syncPolicy:
     automated:
